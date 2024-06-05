@@ -1,0 +1,29 @@
+1. Explaining how the highlighted constructs work:
+
+    The highlighted constructs in the code snippet are goroutines, channels, and the make function for creating channels.
+    Goroutines are lightweight threads managed by the Go runtime. They allow concurrent execution of functions.
+    Channels are communication primitives used for synchronizing and communicating between goroutines. They can be used to send and receive values between goroutines.
+    The make function is used to create channels with a specified type and buffer size.
+
+2. Giving use-cases of what these constructs could be used for:
+
+    Goroutines are commonly used for concurrent execution of tasks, such as parallelizing computation, handling I/O operations concurrently, and processing multiple requests simultaneously in server applications.
+    Channels are useful for coordinating communication between goroutines, such as passing data between producer and consumer goroutines, implementing synchronization primitives like locks and semaphores, and orchestrating complex concurrent workflows.
+    The make function for creating channels with a buffer size can be used to control the capacity of the channel's internal buffer, which can help regulate the flow of data between goroutines.
+
+3. Significance of the for loop with 4 iterations:
+
+    The for loop with 4 iterations creates four goroutines using the go keyword, effectively spawning four concurrent processes to consume functions from the channel.
+    This concurrency pattern can help distribute workload across multiple goroutines, leveraging parallelism to improve performance and throughput in concurrent applications.
+
+4. Significance of make(chan func(), 10):
+
+    The make(chan func(), 10) statement creates a buffered channel capable of holding 10 function references.
+    The buffer size of 10 allows for asynchronous communication between goroutines without blocking the sender if the channel is not immediately ready to receive the function.
+    This can be significant in scenarios where there's a burst of function calls or to smooth out variations in the rate of function production and consumption.
+
+5. Why is “HERE1” not getting printed:
+
+    "HERE1" is not getting printed because the function sending to the channel (cnp <- func() { fmt.Println("HERE1") }) happens before the goroutines start processing functions from the channel.
+    Since the goroutines start running after the function is sent, they miss receiving and executing it.
+    If you were to introduce a delay before printing "Hello" (fmt.Println("Hello")), it's likely that "HERE1" would be printed because the goroutines would have started running by then, allowing them to receive and execute the function.
